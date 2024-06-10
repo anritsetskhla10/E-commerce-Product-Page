@@ -50,11 +50,11 @@ export default function Header({ counter, item, setItem, setCounter }: IHeader) 
       <nav>
         <img className="close" onClick={handleMenuClick} src={Close} alt="close icon" />
         <ul>
-          <li>Collections</li>
-          <li>Men</li>
-          <li>Women</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Men</a></li>
+          <li><a href="#">Women</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
       </nav>
       <div className="blur"></div>

@@ -42,6 +42,10 @@ export const StyledHeader = styled.header<IStyledHeader>`
             .cart{
                 width: 21.8px;
                 height: 20px;
+
+                &:hover{
+                  filter: brightness(0) saturate(100%) invert(0%) sepia(100%) saturate(20%) hue-rotate(39deg) brightness(93%) contrast(107%);
+                }
             }
 
             span{
@@ -60,18 +64,23 @@ export const StyledHeader = styled.header<IStyledHeader>`
         .avatar{
             width: 24px;
             height: 24px;
+
+            &:hover{
+              border: solid 2px #ff7e1b;
+              border-radius: 50%;
+            }
         }
     }
     nav{
-        width: ${({ $openmenu }) => $openmenu ? '250px' : '0'};
+        width: ${({ $openmenu }) => $openmenu ? '260px' : '0'};
         height: 100vh;
         padding: 25px 0 0 25px;
         background-color: #fff;
         visibility: ${({ $openmenu }) => $openmenu ? 'visible' : 'hidden'};
         position: absolute;
-        z-index: 10;
+        z-index: 40;
         top: 0;
-        left: 0;
+        left: -10px;
         transition: width 5s , visibility 1.5s;
 
         .close{
@@ -86,10 +95,13 @@ export const StyledHeader = styled.header<IStyledHeader>`
             gap: 20px;
 
             li{
-                font-size: 18px;
-                font-weight: bold;
-                line-height: 1.44;
-                color: #1d2026;
+                a{
+                  font-size: 18px;
+                  font-weight: bold;
+                  line-height: 1.44;
+                  color: #1d2026;
+                  text-decoration: none;
+                }
             }
         }
     }
@@ -210,9 +222,10 @@ export const StyledHeader = styled.header<IStyledHeader>`
 
 @media only screen and  (min-width: 1200px ){
     min-width: 1200px;
-    padding: 43px 0 49px;
+    padding: 43px 0 34px;
     position: relative;
     justify-content: center;
+    border-bottom: 1px solid  #e4e9f2;
 
     
     .ML-container{
@@ -256,10 +269,21 @@ export const StyledHeader = styled.header<IStyledHeader>`
             
 
             li{
-                font-size: 15px;
-                font-weight: normal;
-                line-height: 1.13;
-                color: #69707d;
+                a{
+                  text-decoration: none;
+                  color: #69707d;
+                  font-size: 15px;
+                  font-weight: normal;
+                  line-height: 1.13;
+                  color: #69707d;
+                  padding-bottom: 49px;
+                  
+                  
+                  &:focus{
+                    color: #1d2026;
+                    border-bottom: 4px solid #ff7e1b;
+                  }
+                }
             }
         }
     }

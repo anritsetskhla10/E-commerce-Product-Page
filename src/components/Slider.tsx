@@ -1,4 +1,4 @@
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -18,35 +18,40 @@ interface SliderProps {
 }
 
 function Slider({ setSelectedImage }: SliderProps) {
+
   useEffect(() => {
     setSelectedImage(ItemImage1);
   }, [setSelectedImage]);
 
+
   return (
-    <StyledSwiper>
-      <Swiper
-        modules={[Navigation]}
-        spaceBetween={0}
-        slidesPerView={1}
-        navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
-        pagination={{ clickable: true }}
-      >
-        <SwiperSlide onClick={() => setSelectedImage(ItemImage1)}>
-          <img src={ItemImage1} alt="Product 1" />
-        </SwiperSlide>
-        <SwiperSlide onClick={() => setSelectedImage(ItemImage2)}>
-          <img src={ItemImage2} alt="Product 2" />
-        </SwiperSlide>
-        <SwiperSlide onClick={() => setSelectedImage(ItemImage3)}>
-          <img src={ItemImage3} alt="Product 3" />
-        </SwiperSlide>
-        <SwiperSlide onClick={() => setSelectedImage(ItemImage4)}>
-          <img src={ItemImage4} alt="Product 4" />
-        </SwiperSlide>
-      </Swiper>
-      <div className="swiper-button-next"></div>
-      <div className="swiper-button-prev"></div>
-    </StyledSwiper>
+    <div>
+      <StyledSwiper>
+        <Swiper
+          modules={[Navigation]}
+          spaceBetween={0}
+          slidesPerView={1}
+          navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
+          pagination={{ clickable: true }}
+        >
+          {[ItemImage1, ItemImage2, ItemImage3, ItemImage4].map((image, index) => (
+            <SwiperSlide key={index} onClick={() => setSelectedImage(image)}>
+              <img src={image} alt={`Product ${index + 1}`} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div className="swiper-button-next"></div>
+        <div className="swiper-button-prev"></div>
+      </StyledSwiper>
+
+      <Thumbnails>
+        {[ItemImage1, ItemImage2, ItemImage3, ItemImage4].map((image, index) => (
+          <Thumbnail key={index} >
+            <img src={image} alt={`Thumbnail ${index + 1}`} />
+          </Thumbnail>
+        ))}
+      </Thumbnails>
+    </div>
   );
 }
 
@@ -60,6 +65,7 @@ const StyledSwiper = styled.div`
 
   img {
     width: 100%;
+    border-radius: 15px;
   }
 
   .swiper-button-next,
@@ -70,26 +76,55 @@ const StyledSwiper = styled.div`
   }
 
   .swiper-button-next {
-    background: url(${NextArrow}) center/ 6px 12px no-repeat, #fff;
+    background: url(${NextArrow}) center/6px 12px no-repeat, #fff;
     right: 16px;
   }
 
   .swiper-button-prev {
-    background: url(${PrevArrow}) center/ 6px 12px no-repeat, #fff;
+    background: url(${PrevArrow}) center/6px 12px no-repeat, #fff;
     left: 16px;
   }
 
   .swiper-button-next:after,
-  .swiper-rtl .swiper-button-prev:after {
-    all: unset;
-  }
-
+  .swiper-rtl .swiper-button-prev:after,
   .swiper-button-prev:after,
   .swiper-rtl .swiper-button-next:after {
-    all: unset;
+    display: none;
   }
 
-  @media only screen and (min-width: 1220px) {
+  @media only screen and (min-width: 1200px) {
     max-width: 445px;
+  }
+`;
+
+const Thumbnails = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 31px;
+  margin-top: 32px;
+
+  @media only screen and (max-width:1199px) {
+    display: none;
+  }
+`;
+
+const Thumbnail = styled.div`
+  width: 88px;
+  height: 88px;
+  cursor: pointer;
+
+  img {
+    border-radius: 10px;
+    width: 100%;
+    transition: background-color 0.3s;
+
+    &:focus {
+      border: solid 2px #ff7e1b;
+      background-color: rgba(255, 255, 255, 0.75);
+    }
+
+    &:hover{
+      background-color: rgba(255, 255, 255, 0.5);
+    }
   }
 `;

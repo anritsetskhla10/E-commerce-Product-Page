@@ -24,7 +24,7 @@ export default function Main({ counter, setCounter, setItem }: IMain) {
   };
 
   const handleMinusCountClick: React.MouseEventHandler<HTMLImageElement> = () => {
-    setCounter(prevCounter => (prevCounter > 0 ? prevCounter - 1 : 0)); // Prevent counter from going below 0
+    setCounter(prevCounter => (prevCounter > 0 ? prevCounter - 1 : 0)); 
   };
 
   const handleSetRefs = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -46,7 +46,7 @@ export default function Main({ counter, setCounter, setItem }: IMain) {
 
   return (
     <StyledMain>
-      <div>
+      <div className='slider-container'>
         <Slider setSelectedImage={setSelectedImage} />
       </div>
       <div className="info-container">
@@ -62,7 +62,7 @@ export default function Main({ counter, setCounter, setItem }: IMain) {
           </div>
           <span>$250.00</span>
         </div>
-
+        <div className='QBtn-wrapper'>
         <div className="quantity-container">
           <img className="minus" onClick={handleMinusCountClick} src={MinusIcon} alt="minus icon" />
           <span>{counter}</span>
@@ -73,6 +73,8 @@ export default function Main({ counter, setCounter, setItem }: IMain) {
           <img src={Cart} alt="cart icon" />
           Add to cart
         </button>
+
+        </div>
       </div>
     </StyledMain>
   );
