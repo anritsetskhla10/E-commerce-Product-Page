@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-interface IHeader{
+interface IStyledHeader{
     $openmenu:boolean;
     $opencart:boolean;
 }
 
-export const StyledHeader = styled.header<IHeader>`
-    min-width: 375px;
+export const StyledHeader = styled.header<IStyledHeader>`
+    width: 375px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -106,91 +106,110 @@ export const StyledHeader = styled.header<IHeader>`
         z-index: 5;
     }
 
-    .cartPopup{
-        display: ${({$opencart}) => $opencart? 'block' : 'none' };
-        width: 360px;
-        height: 256px;
-        padding: 24px 0 32px;
-        border-radius: 10px;
-        box-shadow: 0 20px 50px -20px rgba(29, 32, 38, 0.5);
-        background-color: #fff;
-        position: absolute;
-        top: 76px;
-        left: 8px;
-        
-        & > span{
+    .cartPopup {
+  display: ${({ $opencart }) => ($opencart ? 'block' : 'none')};
+  width: 360px;
+  padding: 24px 0 32px;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px -20px rgba(29, 32, 38, 0.5);
+  background-color: #fff;
+  position: absolute;
+  top: 76px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 50;
+
+  & > span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1d2026;
+    padding: 0 24px;
+  }
+
+  hr {
+    height: 1px;
+    margin: 27px 0 0;
+    background-color: #e4e9f2;
+  }
+
+  .cartContent {
+    padding: 24px 24px 0;
+
+    .cartItem {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 26px;
+
+      .cartItemImg {
+        width: 50px;
+        height: 50px;
+        border-radius: 4px;
+      }
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+
+        p {
+          font-size: 16px;
+          line-height: 1.63;
+          color: #69707d;
+          white-space: nowrap;
+        }
+
+        .price-container {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+
+          span {
             font-size: 16px;
             font-weight: bold;
+            line-height: 1.63;
             color: #1d2026;
-            padding: 0 24px;
+          }
         }
+      }
 
-        hr{
-            height: 1px;
-            margin: 27px 0 0;
-            background-color: #e4e9f2;
-        }
-
-        & > div{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 16px;
-            padding: 24px;
-            
-            .cartItemImg{
-                width: 50px;
-                height: 50px;
-                border-radius: 4px;
-            }
-
-            & > div{
-                display: flex;
-                flex-direction: column;
-
-               p{
-                    font-size: 16px;
-                    line-height: 1.63;
-                    color: #69707d;
-                }
-
-                .price-container{
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    gap: 10px;
-                  span{
-                    font-size: 16px;
-                    font-weight: bold;
-                    line-height: 1.63;
-                    color: #1d2026;
-                  }
-
-                }
-            }
-
-            .delete{
-                width: 14px;
-                height: 16px;
-                cursor: pointer;
-            }
-        }
-
-        .checkoutBtn{
-            margin: 0 24px ;
-            padding: 22px 120px 18px ;
-            border: none;
-            border-radius: 10px;
-            background-color: #ff7e1b;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            cursor: pointer;
-
-            &:hover{
-                box-shadow: 0 20px 50px -20px #ff7e1b;
-                background-color: #ffab6a;
-            }
-        }
+      .delete {
+        width: 14px;
+        height: 16px;
+        cursor: pointer;
+      }
     }
+
+    .checkoutBtn {
+      padding: 22px 120px 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff7e1b;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 20px 50px -20px #ff7e1b;
+        background-color: #ffab6a;
+      }
+    }
+  }
+
+  .emptyMessage {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.63;
+    text-align: center;
+    color: #69707d;
+    padding: 77px 0 53px;
+  }
+}
+
+@media only screen and  (min-width: 1200px ){
+
+}
+
 `

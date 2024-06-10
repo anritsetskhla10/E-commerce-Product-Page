@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        min-width: 375px;
+        min-width: 100vw;
         min-height: 100vh;
         background-color: #fff;
         display: flex;
