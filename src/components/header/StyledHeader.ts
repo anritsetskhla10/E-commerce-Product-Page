@@ -6,7 +6,7 @@ interface IStyledHeader{
 }
 
 export const StyledHeader = styled.header<IStyledHeader>`
-    width: 375px;
+    min-width: 375px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -209,7 +209,92 @@ export const StyledHeader = styled.header<IStyledHeader>`
 }
 
 @media only screen and  (min-width: 1200px ){
+    min-width: 1200px;
+    padding: 43px 0 49px;
+    position: relative;
+    justify-content: center;
 
+    
+    .ML-container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        order: 1;
+
+        .menu{
+          display: none;
+        }
+    }
+
+    .CA-container{
+        gap: 46px; 
+        order :3 ;
+
+        .avatar{
+            width: 50px;
+            height: 50px;
+        }
+    }
+    nav{
+        width: fit-content;
+        height: 100%;
+        padding: 0;
+        visibility: visible;
+        position: unset;
+        transition: unset;
+        order: 2;
+
+        .close{
+           display: none;
+        }
+
+        & > ul{
+            flex-direction: row;
+            gap: 32px;
+            margin: 0 402px 0 65.5px;
+            
+
+            li{
+                font-size: 15px;
+                font-weight: normal;
+                line-height: 1.13;
+                color: #69707d;
+            }
+        }
+    }
+
+    .blur{
+        display: none;
+    }
+
+    .cartPopup {
+        top: 94px;
+        left: unset;
+        right: 89px;
+        transform: unset;
+
+
+    .cartItem {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 26px;
+
+      .cartItemImg {
+        width: 50px;
+        height: 50px;
+        border-radius: 4px;
+      }
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+
+        }
+    }
+    }
 }
 
 `
