@@ -1,13 +1,14 @@
-import  { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper as SwiperCore } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
-import "yet-another-react-lightbox/plugins/thumbnails.css";
-import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import 'yet-another-react-lightbox/plugins/thumbnails.css';
+import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 
 import ItemImage1 from '/images/image-product-1.jpg';
 import ItemImage2 from '/images/image-product-2.jpg';
@@ -15,16 +16,13 @@ import ItemImage3 from '/images/image-product-3.jpg';
 import ItemImage4 from '/images/image-product-4.jpg';
 import { CustomCloseButton, CustomNextButton, CustomPrevButton, StyledSwiper, StyledThumbnails, Thumbnail } from './StyledSlider';
 
-
 interface SliderProps {
   setSelectedImage: (image: string) => void;
 }
 
-
 const images = [ItemImage1, ItemImage2, ItemImage3, ItemImage4];
 
 const customStyles = {
-  
   container: {
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
   },
@@ -32,22 +30,21 @@ const customStyles = {
     backgroundColor: 'transparent',
     padding: 0,
   },
-  thumbnailsContainer:{
+  thumbnailsContainer: {
     background: 'rgba(0, 0, 0, 0.75)',
-    paddingTop: 40, 
+    paddingTop: 40,
     paddingBottom: 89,
   },
-  thumbnailsTrack:{
-    gap:31,
-    width: 'calc(100% - (4 * 31px))',
+  thumbnailsTrack: {
+    gap: 31,
   },
-
 };
 
 function Slider({ setSelectedImage }: SliderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const swiperRef = useRef<SwiperCore | null>(null);
 
   useEffect(() => {
     setSelectedImage(ItemImage1);
@@ -65,7 +62,7 @@ function Slider({ setSelectedImage }: SliderProps) {
     };
   }, []);
 
-  const handleSlideChange = (swiper: any) => {
+  const handleSlideChange = (swiper: SwiperCore) => {
     setSelectedImage(images[swiper.activeIndex]);
   };
 
@@ -81,6 +78,15 @@ function Slider({ setSelectedImage }: SliderProps) {
 
   const thumbnailsRef = useRef(null);
 
+  const handleThumbnailClick = (index: number) => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(index);
+    }
+  };
+
+  const onSwiperInit = (swiperInstance: SwiperCore) => {
+    swiperRef.current = swiperInstance;
+  };
 
   return (
     <div>
@@ -92,8 +98,7 @@ function Slider({ setSelectedImage }: SliderProps) {
           navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
           pagination={{ clickable: true }}
           onSlideChange={handleSlideChange}
-          
-          
+          onSwiper={onSwiperInit}
         >
           {images.map((image, index) => (
             <SwiperSlide key={index} onClick={() => openLightbox(index)}>
@@ -107,46 +112,40 @@ function Slider({ setSelectedImage }: SliderProps) {
 
       <StyledThumbnails>
         {images.map((image, index) => (
-          <Thumbnail key={index} onClick={() => openLightbox(index)}>
+          <Thumbnail key={index} onClick={() => handleThumbnailClick(index)}>
             <img src={image} alt={`Thumbnail ${index + 1}`} />
           </Thumbnail>
         ))}
       </StyledThumbnails>
 
-      {isOpen && screenWidth > 1200 &&(
+      {isOpen && screenWidth > 1200 && (
         <Lightbox
-        
-        slides={images.map(image => ({
-          src: image,
-          width: screenWidth > 1440 ? 550 : 500,
-          height: screenWidth > 1440 ? 550 : 500
-          
-        }))}
-      
+          slides={images.map((image) => ({
+            src: image,
+            width: screenWidth > 1440 ? 550 : 500,
+            height: screenWidth > 1440 ? 550 : 500,
+          }))}
           render={{
             iconPrev: () => <CustomPrevButton />,
             iconNext: () => <CustomNextButton />,
-            iconClose: () => <CustomCloseButton/>,
-            
+            iconClose: () => <CustomCloseButton />,
           }}
           plugins={[Thumbnails]}
-          thumbnails={{ ref: thumbnailsRef ,
+          thumbnails={{
+            ref: thumbnailsRef,
             width: 88,
-            
             height: 88,
             border: 1,
-            borderStyle: "solid",
-            borderColor: "#ff7e1b",
+            borderStyle: 'solid',
+            borderColor: '#ff7e1b',
             borderRadius: 10,
-            padding: 0 ,
+            padding: 0,
             gap: 31,
-            imageFit:  "cover",
-
+            imageFit: 'cover',
           }}
           open={isOpen}
           index={photoIndex}
           close={handleCloseLightbox}
-
           styles={{
             ...customStyles,
           }}
@@ -157,4 +156,3 @@ function Slider({ setSelectedImage }: SliderProps) {
 }
 
 export default Slider;
-

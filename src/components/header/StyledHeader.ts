@@ -42,7 +42,7 @@ export const StyledHeader = styled.header<IStyledHeader>`
             .cart{
                 width: 21.8px;
                 height: 20px;
-
+                cursor: pointer;
                 &:hover{
                   filter: brightness(0) saturate(100%) invert(0%) sepia(100%) saturate(20%) hue-rotate(39deg) brightness(93%) contrast(107%);
                 }
@@ -64,6 +64,7 @@ export const StyledHeader = styled.header<IStyledHeader>`
         .avatar{
             width: 24px;
             height: 24px;
+            cursor: pointer;
 
             &:hover{
               border: solid 2px #ff7e1b;
